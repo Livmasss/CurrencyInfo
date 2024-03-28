@@ -1,14 +1,22 @@
 package com.livmas.currencyinfo
 
+import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.livmas.currencyinfo.databinding.ActivityMainBinding
+import com.livmas.currency.presentation.fragments.CurrencyListFragment
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(R.layout.activity_main)
 
+        startCurrencyFragment()
+    }
+
+    private fun startCurrencyFragment() {
+        val fragment = CurrencyListFragment()
+        supportFragmentManager.beginTransaction()
+            .add(R.id.fcvContainer, fragment)
+            .commit()
     }
 }

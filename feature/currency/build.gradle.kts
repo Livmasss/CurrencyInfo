@@ -30,9 +30,18 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+    buildFeatures {
+        viewBinding = true
+    }
 }
 
 dependencies {
+    //project dependencies
+    implementation(project(":ui"))
+
+    //DI
+    val koinVersion = "3.5.0"
+    implementation ("io.insert-koin:koin-android:$koinVersion")
 
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.appcompat:appcompat:1.6.1")

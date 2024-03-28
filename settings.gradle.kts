@@ -17,3 +17,4 @@ rootProject.name = "CurrencyInfo"
 include(":app")
 include(":data")
 include(":feature:currency")
+include(":ui")
