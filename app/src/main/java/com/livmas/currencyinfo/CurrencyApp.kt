@@ -2,6 +2,7 @@ package com.livmas.currencyinfo
 
 import android.app.Application
 import com.livmas.currency.currencyFeatureModule
+import com.livmas.data.dataModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
@@ -14,7 +15,7 @@ class CurrencyApp: Application() {
         startKoin {
             androidLogger(Level.DEBUG)
             androidContext(applicationContext)
-            modules(currencyFeatureModule)
+            modules(currencyFeatureModule, dataModule)
         }
     }
 }

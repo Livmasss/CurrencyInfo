@@ -1,8 +1,7 @@
 package com.livmas.currencyinfo
 
-import android.annotation.SuppressLint
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import com.livmas.currency.presentation.fragments.CurrencyListFragment
 
 class MainActivity : AppCompatActivity() {

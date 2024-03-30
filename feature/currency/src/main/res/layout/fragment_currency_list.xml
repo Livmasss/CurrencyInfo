@@ -1,16 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.fragments.CurrencyListFragment">
+    tools:context=".presentation.fragments.CurrencyListFragment"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tvLastRefreshDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/refresh_date"/>
+
+    <TextView
+        android:id="@+id/tvLastRefreshTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/refresh_time"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvCurrencies"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"/>
 
-
-    </androidx.recyclerview.widget.RecyclerView>
-
-</FrameLayout>
+</LinearLayout>

@@ -1,7 +1,6 @@
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
-    id("com.google.devtools.ksp")
 }
 
 android {
@@ -34,6 +33,12 @@ android {
 }
 
 dependencies {
+    //project dependencies
+    implementation(project(":feature:currency"))
+
+    //DI
+    val koinVersion = "3.5.0"
+    implementation ("io.insert-koin:koin-android:$koinVersion")
 
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
