@@ -36,6 +36,11 @@ dependencies {
     //project dependencies
     implementation(project(":feature:currency"))
 
+    // Retrofit
+    val retrofitVersion = "2.9.0"
+    implementation ("com.squareup.retrofit2:retrofit:$retrofitVersion")
+    implementation ("com.squareup.retrofit2:converter-gson:$retrofitVersion")
+
     //DI
     val koinVersion = "3.5.0"
     implementation ("io.insert-koin:koin-android:$koinVersion")

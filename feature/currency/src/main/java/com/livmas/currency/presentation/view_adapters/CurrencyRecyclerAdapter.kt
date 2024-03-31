@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.livmas.currency.databinding.CurrencyItemLayoutBinding
 import com.livmas.currency.presentation.models.CurrencyModel
 
-internal class CurrencyRecyclerAdapter(private val data: MutableList<CurrencyModel>): RecyclerView.Adapter<CurrencyRecyclerAdapter.CurrencyHolder>() {
+internal class CurrencyRecyclerAdapter(private val data: List<CurrencyModel>): RecyclerView.Adapter<CurrencyRecyclerAdapter.CurrencyHolder>() {
     inner class CurrencyHolder(private val binding: CurrencyItemLayoutBinding) : ViewHolder(binding.root) {
         fun bindData(model: CurrencyModel) {
             binding.tvCurrTitle.text = model.title

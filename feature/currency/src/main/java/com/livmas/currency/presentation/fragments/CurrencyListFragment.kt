@@ -5,14 +5,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.livmas.currency.databinding.FragmentCurrencyListBinding
 import com.livmas.currency.presentation.view_adapters.CurrencyRecyclerAdapter
-import org.koin.android.ext.android.inject
 
 class CurrencyListFragment : Fragment() {
-
-    private val recyclerAdapter: CurrencyRecyclerAdapter by inject()
+    private val viewModel: CurrencyListViewModel by viewModels()
     private lateinit var binding: FragmentCurrencyListBinding
 
     override fun onCreateView(
@@ -26,11 +25,15 @@ class CurrencyListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        binding.rvCurrencies.adapter = recyclerAdapter
-        binding.rvCurrencies.layoutManager = LinearLayoutManager(
-            context,
-            LinearLayoutManager.VERTICAL,
-            false
-        )
+        viewModel.currencies.observe(viewLifecycleOwner) {
+            println("!!!")
+            binding.rvCurrencies.adapter = CurrencyRecyclerAdapter(it)
+
+            binding.rvCurrencies.layoutManager = LinearLayoutManager(
+                context,
+                LinearLayoutManager.VERTICAL,
+                false
+            )
+        }
     }
 }
