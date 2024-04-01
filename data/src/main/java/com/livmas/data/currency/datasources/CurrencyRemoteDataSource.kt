@@ -10,6 +10,8 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.io.IOException
 
 class CurrencyRemoteDataSource {
+    private val api = setupRetrofitAPI()
+
     fun fetchCurrenciesData(): CurrencyGetResponse {
         val response = api.getCurrencies().execute()
         if (response.body() == null)
@@ -17,9 +19,7 @@ class CurrencyRemoteDataSource {
         return response.body()!!
     }
 
-    private val api = setupRetrofit()
-
-    private fun setupRetrofit(): CurrencyRemoteAPI {
+    private fun setupRetrofitAPI(): CurrencyRemoteAPI {
         val interceptor = HttpLoggingInterceptor()
         interceptor.setLevel(HttpLoggingInterceptor.Level.BASIC)
         val client = OkHttpClient.Builder().addInterceptor(interceptor).build()

@@ -20,7 +20,6 @@ class CurrencyListFragment : Fragment() {
     private lateinit var binding: FragmentCurrencyListBinding
 
     private val currenciesAdapter = CurrencyRecyclerAdapter(listOf())
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -32,17 +31,21 @@ class CurrencyListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        setupObservers()
         setupViews()
     }
 
     override fun onStart() {
         super.onStart()
+
+        setupObservers()
         viewModel.startCurrencyRefreshScheduling()
     }
+
     override fun onStop() {
         super.onStop()
+
         viewModel.stopCurrencyRefreshScheduling()
+        disableObservers()
     }
 
     private fun setupViews() {
@@ -91,6 +94,11 @@ class CurrencyListFragment : Fragment() {
                 binding.pbCurrencyLoading.visibility = View.GONE
             }
         }
+    }
+    private fun disableObservers() {
+        viewModel.currencies.removeObservers(viewLifecycleOwner)
+        viewModel.isLoading.removeObservers(viewLifecycleOwner)
+        viewModel.exception.removeObservers(viewLifecycleOwner)
     }
 
     private fun fillRefreshText(calendar: Calendar) {
