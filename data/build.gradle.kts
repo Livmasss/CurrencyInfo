@@ -21,8 +21,16 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            buildConfigField("String", "API_URL", "\"https://www.cbr-xml-daily.ru\"")
+        }
+        debug {
+            buildConfigField("String", "API_URL", "\"https://www.cbr-xml-daily.ru\"")
         }
     }
+    buildFeatures {
+        buildConfig = true
+    }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8

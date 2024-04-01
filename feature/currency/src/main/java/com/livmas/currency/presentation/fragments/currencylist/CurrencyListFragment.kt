@@ -38,11 +38,11 @@ class CurrencyListFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
-        viewModel.startCurrencyScheduling()
+        viewModel.startCurrencyRefreshScheduling()
     }
     override fun onStop() {
         super.onStop()
-        viewModel.disableTimer()
+        viewModel.stopCurrencyRefreshScheduling()
     }
 
     private fun setupViews() {

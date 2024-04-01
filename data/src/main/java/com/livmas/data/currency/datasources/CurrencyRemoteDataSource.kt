@@ -1,5 +1,6 @@
 package com.livmas.data.currency.datasources
 
+import com.livmas.data.BuildConfig
 import com.livmas.data.currency.CurrencyRemoteAPI
 import com.livmas.data.currency.models.CurrencyGetResponse
 import okhttp3.OkHttpClient
@@ -9,11 +10,11 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.io.IOException
 
 class CurrencyRemoteDataSource {
-    val BASE_URL = "https://www.cbr-xml-daily.ru"
     fun fetchCurrenciesData(): CurrencyGetResponse {
-        if (api.getCurrencies().execute().body() == null)
+        val response = api.getCurrencies().execute()
+        if (response.body() == null)
             throw IOException("Fetching failed!")
-        return api.getCurrencies().execute().body()!!
+        return response.body()!!
     }
 
     private val api = setupRetrofit()
@@ -24,7 +25,7 @@ class CurrencyRemoteDataSource {
         val client = OkHttpClient.Builder().addInterceptor(interceptor).build()
 
         return Retrofit.Builder()
-            .baseUrl(BASE_URL)
+            .baseUrl(BuildConfig.API_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .client(client)
             .build()

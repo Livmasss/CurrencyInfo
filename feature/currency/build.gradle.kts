@@ -21,7 +21,16 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            buildConfigField("Long", "CURRENCY_REFRESH_PERIOD", "30000L")
         }
+        debug {
+            buildConfigField("Long", "CURRENCY_REFRESH_PERIOD", "30000L")
+        }
+    }
+
+    buildFeatures {
+        viewBinding = true
+        buildConfig = true
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
@@ -29,9 +38,6 @@ android {
     }
     kotlinOptions {
         jvmTarget = "1.8"
-    }
-    buildFeatures {
-        viewBinding = true
     }
 }
 

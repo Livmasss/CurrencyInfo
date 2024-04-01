@@ -2,17 +2,15 @@ package com.livmas.currency.presentation.fragments.currencylist
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.livmas.currency.BuildConfig
 import com.livmas.currency.domain.usecases.GetAllCurrenciesUseCase
 import com.livmas.currency.presentation.models.CurrencyModel
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import org.koin.java.KoinJavaComponent.inject
 import java.util.Timer
 import kotlin.concurrent.schedule
 
 class CurrencyListViewModel: ViewModel() {
-    private val timer = Timer()
+    private lateinit var timer: Timer
     private val getCurrenciesUseCase: GetAllCurrenciesUseCase by inject(GetAllCurrenciesUseCase::class.java)
 
     val currencies: MutableLiveData<List<CurrencyModel>> by lazy {
@@ -25,19 +23,18 @@ class CurrencyListViewModel: ViewModel() {
         MutableLiveData(false)
     }
 
-    fun startCurrencyScheduling() {
-        CoroutineScope(Dispatchers.IO).launch {
-            timer.schedule(0L, 30000L) {
-                try {
-                    isLoading.postValue(true)
-                    currencies.postValue(getCurrenciesUseCase.execute())
-                }
-                catch (e: java.lang.Exception) {
-                    exception.postValue(e)
-                }
+    fun startCurrencyRefreshScheduling() {
+        timer = Timer()
+        timer.schedule(0L, BuildConfig.CURRENCY_REFRESH_PERIOD) {
+            try {
+                isLoading.postValue(true)
+                currencies.postValue(getCurrenciesUseCase.execute())
+            }
+            catch (e: java.lang.Exception) {
+                exception.postValue(e)
             }
         }
     }
-    fun disableTimer() =
+    fun stopCurrencyRefreshScheduling() =
         timer.cancel()
 }

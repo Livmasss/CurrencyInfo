@@ -15,7 +15,7 @@ class MainActivity : AppCompatActivity() {
     private fun startCurrencyFragment() {
         val fragment = CurrencyListFragment()
         supportFragmentManager.beginTransaction()
-            .add(R.id.fcvContainer, fragment)
+            .replace(R.id.fcvContainer, fragment)
             .commit()
     }
 }
