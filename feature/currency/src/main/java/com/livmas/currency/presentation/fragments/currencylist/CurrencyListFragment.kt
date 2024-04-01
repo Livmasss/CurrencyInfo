@@ -32,6 +32,15 @@ class CurrencyListFragment : Fragment() {
         setupObservers()
     }
 
+    override fun onStart() {
+        super.onStart()
+        viewModel.startCurrencyScheduling()
+    }
+    override fun onStop() {
+        super.onStop()
+        viewModel.disableTimer()
+    }
+
     private fun setupObservers() {
         setupCurrencyObserver()
         setupIsLoadingObserver()

@@ -8,12 +8,11 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.koin.java.KoinJavaComponent.inject
+import java.util.Timer
+import kotlin.concurrent.schedule
 
 class CurrencyListViewModel: ViewModel() {
-    init {
-        fetchCurrencyData()
-    }
-
+    private val timer = Timer()
     private val getCurrenciesUseCase: GetAllCurrenciesUseCase by inject(GetAllCurrenciesUseCase::class.java)
 
     val currencies: MutableLiveData<List<CurrencyModel>> by lazy {
@@ -23,10 +22,15 @@ class CurrencyListViewModel: ViewModel() {
         MutableLiveData(false)
     }
 
-    private fun fetchCurrencyData() {
+    fun startCurrencyScheduling() {
         CoroutineScope(Dispatchers.IO).launch {
-            isLoading.postValue(true)
-            currencies.postValue(getCurrenciesUseCase.execute())
+            timer.schedule(0L, 30000L) {
+                isLoading.postValue(true)
+                currencies.postValue(getCurrenciesUseCase.execute())
+            }
         }
     }
+    fun disableTimer() =
+        timer.cancel()
+
 }
