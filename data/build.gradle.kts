@@ -8,7 +8,7 @@ android {
     compileSdk = 34
 
     defaultConfig {
-        minSdk = 26
+        minSdk = 24
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
@@ -36,10 +36,11 @@ dependencies {
     //project dependencies
     implementation(project(":feature:currency"))
 
-    // Retrofit
+    // HTTP connection
     val retrofitVersion = "2.9.0"
     implementation ("com.squareup.retrofit2:retrofit:$retrofitVersion")
     implementation ("com.squareup.retrofit2:converter-gson:$retrofitVersion")
+    implementation ("com.squareup.okhttp3:logging-interceptor:4.11.0")
 
     //DI
     val koinVersion = "3.5.0"
