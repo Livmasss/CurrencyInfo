@@ -1,5 +1,7 @@
 package com.livmas.currency.presentation.fragments.currencylist
 
+import android.content.IntentFilter
+import android.net.ConnectivityManager
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,13 +11,14 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.livmas.currency.R
 import com.livmas.currency.databinding.FragmentCurrencyListBinding
+import com.livmas.currency.presentation.receivers.ConnectivityReceiver
 import com.livmas.currency.presentation.view_adapters.CurrencyRecyclerAdapter
 import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
 
-class CurrencyListFragment : Fragment() {
+class CurrencyListFragment : Fragment(), ConnectivityReceiver.ConnectivityReceiverListener {
     private val viewModel: CurrencyListViewModel by viewModels()
     private lateinit var binding: FragmentCurrencyListBinding
 
@@ -32,6 +35,7 @@ class CurrencyListFragment : Fragment() {
         super.onCreate(savedInstanceState)
 
         setupViews()
+        requireActivity().registerReceiver(ConnectivityReceiver(), IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION))
     }
 
     override fun onStart() {
@@ -39,13 +43,15 @@ class CurrencyListFragment : Fragment() {
 
         setupObservers()
         viewModel.startCurrencyRefreshScheduling()
+        ConnectivityReceiver.registerListener(this)
     }
 
     override fun onStop() {
         super.onStop()
 
-        viewModel.stopCurrencyRefreshScheduling()
         disableObservers()
+        viewModel.stopCurrencyRefreshScheduling()
+        ConnectivityReceiver.unregisterListener(this)
     }
 
     private fun setupViews() {
@@ -105,5 +111,10 @@ class CurrencyListFragment : Fragment() {
         val refreshPattern = SimpleDateFormat(resources.getString(R.string.time_pattern), Locale.getDefault())
         val refreshString = refreshPattern.format(calendar.time)
         binding.tvLastRefresh.text = resources.getString(R.string.last_refresh_pattern, refreshString)
+    }
+
+    override fun onNetworkConnected() {
+        viewModel.stopCurrencyRefreshScheduling()
+        viewModel.startCurrencyRefreshScheduling()
     }
 }
