@@ -2,7 +2,7 @@ package com.livmas.currencyinfo
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.livmas.currency.presentation.fragments.CurrencyListFragment
+import com.livmas.currency.presentation.fragments.currencylist.CurrencyListFragment
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

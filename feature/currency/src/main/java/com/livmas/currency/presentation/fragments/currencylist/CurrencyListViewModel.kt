@@ -1,4 +1,4 @@
-package com.livmas.currency.presentation.fragments
+package com.livmas.currency.presentation.fragments.currencylist
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -11,17 +11,21 @@ import org.koin.java.KoinJavaComponent.inject
 
 class CurrencyListViewModel: ViewModel() {
     init {
-        println("Viewmodel Created")
-        fillWithData()
+        fetchCurrencyData()
     }
+
     private val getCurrenciesUseCase: GetAllCurrenciesUseCase by inject(GetAllCurrenciesUseCase::class.java)
 
     val currencies: MutableLiveData<List<CurrencyModel>> by lazy {
         MutableLiveData()
     }
+    val isLoading: MutableLiveData<Boolean> by lazy {
+        MutableLiveData(false)
+    }
 
-    private fun fillWithData() {
+    private fun fetchCurrencyData() {
         CoroutineScope(Dispatchers.IO).launch {
+            isLoading.postValue(true)
             currencies.postValue(getCurrenciesUseCase.execute())
         }
     }
