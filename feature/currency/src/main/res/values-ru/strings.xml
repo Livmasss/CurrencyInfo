@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="last_refresh_pattern">Данные обновлены: %1$s</string>
+    <string name="exception_io_message">Произошла ошибка с получением данных! Попробуйте проверить интернет соединение.</string>
+    <string name="exception_default_message">Произошла какая-то ошибка! Попробуйте связаться с разработчиками для решения проблемы.</string>
+</resources>

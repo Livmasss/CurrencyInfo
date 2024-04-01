@@ -18,6 +18,9 @@ class CurrencyListViewModel: ViewModel() {
     val currencies: MutableLiveData<List<CurrencyModel>> by lazy {
         MutableLiveData()
     }
+    val exception: MutableLiveData<Exception> by lazy {
+        MutableLiveData()
+    }
     val isLoading: MutableLiveData<Boolean> by lazy {
         MutableLiveData(false)
     }
@@ -25,12 +28,16 @@ class CurrencyListViewModel: ViewModel() {
     fun startCurrencyScheduling() {
         CoroutineScope(Dispatchers.IO).launch {
             timer.schedule(0L, 30000L) {
-                isLoading.postValue(true)
-                currencies.postValue(getCurrenciesUseCase.execute())
+                try {
+                    isLoading.postValue(true)
+                    currencies.postValue(getCurrenciesUseCase.execute())
+                }
+                catch (e: java.lang.Exception) {
+                    exception.postValue(e)
+                }
             }
         }
     }
     fun disableTimer() =
         timer.cancel()
-
 }
