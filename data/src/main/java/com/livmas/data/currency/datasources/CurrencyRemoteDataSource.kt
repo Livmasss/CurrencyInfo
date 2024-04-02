@@ -9,7 +9,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.io.IOException
 
-class CurrencyRemoteDataSource {
+internal class CurrencyRemoteDataSource {
     private val api = setupRetrofitAPI()
 
     fun fetchCurrenciesData(): CurrencyGetResponse {

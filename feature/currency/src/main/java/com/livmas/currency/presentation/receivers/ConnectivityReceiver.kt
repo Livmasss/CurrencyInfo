@@ -7,7 +7,7 @@ import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.util.Log
 
-class ConnectivityReceiver : BroadcastReceiver() {
+internal class ConnectivityReceiver : BroadcastReceiver() {
     companion object {
         private var connectivityReceiverListeners: MutableList<ConnectivityReceiverListener> = mutableListOf()
         fun registerListener(listener: ConnectivityReceiverListener) {

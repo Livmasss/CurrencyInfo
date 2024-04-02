@@ -2,7 +2,7 @@ package com.livmas.data.currency.models
 
 import com.google.gson.annotations.SerializedName
 
-data class CurrencyGetResponse (
+internal data class CurrencyGetResponse (
     @SerializedName("Valute")
     val valute: Map<String, CurrencyResponseModel>
 )

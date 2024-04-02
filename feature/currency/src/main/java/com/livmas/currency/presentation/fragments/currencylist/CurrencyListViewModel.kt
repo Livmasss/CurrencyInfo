@@ -9,7 +9,7 @@ import org.koin.java.KoinJavaComponent.inject
 import java.util.Timer
 import kotlin.concurrent.schedule
 
-class CurrencyListViewModel: ViewModel() {
+internal class CurrencyListViewModel: ViewModel() {
     private lateinit var timer: Timer
     private val getCurrenciesUseCase: GetAllCurrenciesUseCase by inject(GetAllCurrenciesUseCase::class.java)
 
